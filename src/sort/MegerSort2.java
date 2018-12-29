@@ -41,7 +41,7 @@ public class MegerSort2 {
         int k = 0;
 
         while (i <= mid && j <= r) {
-            if (arr[i] < arr[j])
+            if (arr[i] <= arr[j])
                 temp[k++] = arr[i++];
             else
                 temp[k++] = arr[j++];
@@ -74,5 +74,6 @@ public class MegerSort2 {
         MegerSort2.sort(arr2);
         long endTime1 = System.currentTimeMillis();
         System.out.println((endTime1 - startTime1) / 1000.0 + "s");// 0.132s
+        System.out.println(SortTestUtils.isSorted(arr2));
     }
 }
