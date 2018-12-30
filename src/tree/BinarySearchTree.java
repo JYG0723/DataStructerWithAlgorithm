@@ -390,4 +390,220 @@ public class BinarySearchTree<K extends Comparable<K>, V> {
 
         return cur.key;
     }
+
+    public void removeMin() {
+
+        assert count > 0;
+
+        root = removeMin(root);
+    }
+
+    /**
+     * 删除二分搜索树的最小节点
+     * 并且返回新的二分搜索树的根
+     */
+    private Node removeMin(Node root) {
+
+        if (root.left == null) {
+            count--;
+            return root.right;
+        }
+
+        root.left = removeMin(root.left);
+        return root;
+    }
+
+    public void removeMinNonRecursive() {
+
+        assert count > 0;
+
+        Node cur = root;
+        Node parent = cur;
+
+        // 此时的cur引用指向的Node即是最小节点。
+        // 要想删除该cur，那么需要让其父节点的原left引用指向cur节点的右子树。
+        // 所以我们需要一组 前后脚 节点。
+        while (cur.left != null) {
+            parent = cur;
+            cur = cur.left;
+        }
+
+        parent.left = cur.right;
+        count--;
+    }
+
+    public void removeMaxNonRecursive() {
+
+        assert count > 0;
+
+        Node cur = root;
+        Node parent = cur;
+        while (cur != null) {
+            parent = cur;
+            cur = cur.right;
+        }
+
+        parent.right = cur.left;
+        count--;
+    }
+
+    public void removeMax() {
+
+        assert count > 0;
+        root = removeMax(root);
+    }
+
+    /**
+     * 递归删除二分搜索树中的最大值
+     * 返回新的二分搜索树的根
+     */
+    private Node removeMax(Node node) {
+
+        if (node.right == null) {
+            count--;
+            return node.left;
+        }
+
+        node.right = removeMax(node.right);
+        return node;
+    }
+
+    public void remove(K key) {
+        if (contains(key))
+            root = remove(root, key);
+        else return;
+    }
+
+    /**
+     * 删除掉以node为根节点的二分搜索树中Key值为key的节点。
+     * 返回删除节点后二分搜索树的新根节点。
+     */
+    public Node remove(Node node, K key) {
+
+        if (node == null)
+            return null;
+
+        if (key.compareTo(node.key) < 0) {
+            node.left = remove(node.left, key);
+            return node;
+        } else if (key.compareTo(node.key) > 0) {
+            node.right = remove(node.right, key);
+            return node;
+        } else {// key == node.key
+
+            if (node.left == null) {
+                count--;
+                return node.right;
+            }
+
+            if (node.right == null) {
+                count--;
+                return node.left;
+            }
+
+            // left,right != null
+            // 右子树中找最小值，左子树中找最大值
+            Node temp = minimum(node.right);
+            // 为该选定的节点连接左右孩子节点。
+            temp.right = removeMin(node.right);
+            temp.left = node.left;
+            return temp;
+        }
+    }
+
+    public void removeNonRecursive(K key) {
+
+        assert count > 0;
+
+        Node cur = root;
+        Node parent = cur;
+        while (cur != null && cur.key.compareTo(key) != 0) {
+            parent = cur;
+            if (key.compareTo(cur.key) > 0)
+                cur = cur.right;
+            else if (key.compareTo(cur.key) < 0)
+                cur = cur.left;
+        }
+
+        // cur.key = key
+        if (cur.left == null) {
+            cur = cur.right;
+            if (parent.key.compareTo(cur.key) > 0) {
+                parent.left = cur;
+            } else parent.right = cur;
+        } else if (cur.right == null) {
+            cur = cur.left;
+            if (parent.key.compareTo(cur.key) > 0) {
+                parent.left = cur;
+            } else parent.right = cur;
+        } else {// left,right != null
+            Node temp = maximum(cur.left);
+            temp.left = removeMax(cur.left);
+            temp.right = cur.right;
+
+            if (parent.key.compareTo(temp.key) > 0) {
+                parent.left = temp;
+            } else parent.right = temp;
+        }
+    }
+
+    public Node floor(K key) {
+        return floor(root, key);
+    }
+
+    public Node ceil(K key) {
+        return ceil(root, key);
+    }
+
+    // 在以node为根的二叉搜索树中, 寻找key的floor值所处的节点, 递归算法
+    private Node floor(Node node, K key) {
+
+        if (node == null)
+            return null;
+
+        // 如果node的key值和要寻找的key值相等
+        // 则node本身就是key的floor节点
+        if (node.key.compareTo(key) == 0)
+            return node;
+
+        // 如果node的key值比要寻找的key值大
+        // 则要寻找的key的floor节点一定在node的左子树中
+        if (node.key.compareTo(key) > 0)
+            return floor(node.left, key);
+
+        // 如果node->key < key 。那么key的节点应该在node的右子树中。需要再去右子树中看是否有更合适的floor节点。
+        // 则node有可能是key的floor节点, 也有可能不是(存在比node->key大但是小于key的其余节点)
+        // 需要尝试向node的右子树寻找一下
+        Node tempNode = floor(node.right, key);
+        if (tempNode != null)
+            return tempNode;
+
+        return node;
+    }
+
+    // 在以node为根的二叉搜索树中, 寻找key的ceil值所处的节点, 递归算法
+    private Node ceil(Node node, K key) {
+
+        if (node == null)
+            return null;
+
+        // 如果node的key值和要寻找的key值相等
+        // 则node本身就是key的ceil节点
+        if (node.key.compareTo(key) == 0)
+            return node;
+
+        // 如果node的key值比要寻找的key值小
+        // 则要寻找的key的ceil节点一定在node的右子树中
+        if (node.key.compareTo(key) < 0)
+            return ceil(node.right, key);
+
+        // 如果node->key > key 那么key的节点应该在node的左子树中。需要再去左子树中看是否有更合适的ceil节点。
+        // 则node有可能是key的ceil节点, 也有可能不是(存在比node->key小但是大于key的其余节点)
+        // 需要尝试向node的左子树寻找一下
+        Node tempNode = ceil(node.left, key);
+        if (tempNode != null)
+            return tempNode;
+
+        return node;
+    }
 }
