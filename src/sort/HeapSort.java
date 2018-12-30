@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * @author Ji YongGuang.
  * @date 11:16 2018/12/29.
- * @description 堆排序
+ * @description 堆排序 O(nlogn)
  */
 public class HeapSort {
 
@@ -43,7 +43,8 @@ public class HeapSort {
             if (temp >= arr[j])// 已平衡
                 break;
             else
-                arr[start] = arr[j];// 子替父
+            // 因为我们早就把最初的arr[start]提取成temp，每次都是拿temp比，所以不需要考虑父元素的数值也替换下去。
+                arr[start] = arr[j];// 子替父，
         }
         arr[start] = temp;
     }
