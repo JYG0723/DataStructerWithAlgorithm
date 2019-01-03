@@ -23,7 +23,7 @@ public class SparseGraph implements Graph{
         assert n >= 0;
 
         this.n = n;
-        this.n = 0;
+        this.m = 0;
         this.directed = directed;
         table = new ArrayList[n];
         for (int i = 0; i < table.length; i++) {

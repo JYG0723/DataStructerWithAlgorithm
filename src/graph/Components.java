@@ -37,11 +37,12 @@ public class Components {
         }
 
         // 求图的联通分量
-        for (int i = 0; i < graph.v(); i++)
+        for (int i = 0; i < graph.v(); i++) {
             if (!visited[i]) {
                 dfs(i);
                 ccount++;
             }
+        }
     }
 
     // 返回图的联通分量个数
@@ -50,7 +51,7 @@ public class Components {
     }
 
     // 查询点v和点w是否联通
-    boolean isConnected(int v, int w) {
+    boolean isConnected(final int v, final int w) {
         assert v >= 0 && v < graph.v();
         assert w >= 0 && w < graph.v();
         return id[v] == id[w];
