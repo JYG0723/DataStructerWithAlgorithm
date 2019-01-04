@@ -525,18 +525,15 @@ public class BinarySearchTree<K extends Comparable<K>, V> {
                 cur = cur.left;
         }
 
+        if (cur == null)// 没找到
+            return;
+
         // cur.key = key
         if (cur.left == null) {
             cur = cur.right;
-            if (parent.key.compareTo(cur.key) > 0) {
-                parent.left = cur;
-            } else parent.right = cur;
         } else if (cur.right == null) {
             cur = cur.left;
-            if (parent.key.compareTo(cur.key) > 0) {
-                parent.left = cur;
-            } else parent.right = cur;
-        } else {// left,right != null
+        } else {// cur.left != null && cur.right != null
             Node temp = maximum(cur.left);
             temp.left = removeMax(cur.left);
             temp.right = cur.right;
@@ -544,7 +541,12 @@ public class BinarySearchTree<K extends Comparable<K>, V> {
             if (parent.key.compareTo(temp.key) > 0) {
                 parent.left = temp;
             } else parent.right = temp;
+            return;
         }
+
+        if (parent.key.compareTo(cur.key) > 0) {
+            parent.left = cur;
+        } else parent.right = cur;
     }
 
     public Node floor(K key) {

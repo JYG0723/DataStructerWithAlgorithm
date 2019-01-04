@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class SortTestUtils {
 
     /**
-     * 生成大小为length且范围在[rangL,rangR]的数组
+     * 生成大小为length且数值范围在[rangL,rangR]的数组
      */
     public static int[] generateRandomArray(int length, int rangL, int rangR) {
         assert rangL < rangR;
@@ -34,7 +34,7 @@ public class SortTestUtils {
         for (int i = 0; i < length; i++)
             arr[i] = i;
 
-        for (int i = 0; i < swapTimes; i++) {
+        for (int i = 0; i < swapTimes; i++) {// 任意交换两数
             int a = (int) (Math.random() * length);
             int b = (int) (Math.random() * length);
             int t = arr[a];

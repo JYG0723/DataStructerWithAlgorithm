@@ -31,7 +31,7 @@ public class MegerSort2 {
         mergeSort(arr, start, mid);
         mergeSort(arr, mid + 1, end);
         // 优化归并的步骤
-        if (arr[mid] > arr[mid + 1])// 如果arr[mid] <= arr[mid + 1] 则证明两数组已经有序，不需要合并。
+        if (arr[mid] > arr[mid + 1])// 如果arr[mid] <= arr[mid + 1] 则证明当前两数组已经有序，不需要合并。
             merge(arr, start, mid, end);
     }
 

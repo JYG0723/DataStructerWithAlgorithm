@@ -8,16 +8,16 @@ import java.util.Stack;
 /**
  * @author Ji YongGuang.
  * @date 16:53 2019/1/3.
- * @description 最短路径
+ * @description 最短路径 BFS
  */
 public class ShortestPath {
 
     private Graph graph;
     // 起始点
     private int s;
-    // 记录dfs的过程中节点是否被访问
+    // 记录bfs的过程中节点是否被访问
     private boolean[] visited;
-    // 记录dfs的过程中被访问到的节点的前驱节点
+    // 记录bfs的过程中被访问到的节点的前驱节点
     private int[] from;
     // 记录路径中节点的次序。ord[i]表示i节点在路径中的次序。
     private int[] ord;
