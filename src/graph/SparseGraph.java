@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @date 17:19 2018/12/30.
  * @description 稀疏图 - 邻接表
  */
-public class SparseGraph implements Graph{
+public class SparseGraph implements Graph {
 
     // 节点数
     private int n;
@@ -47,6 +47,10 @@ public class SparseGraph implements Graph{
         assert v >= 0 && v <= n;
         assert w >= 0 && w <= n;
 
+        if (hasEdge(v, w)) {
+            return;
+        }
+        
         table[v].add(w);
         if (v != w && !directed)// 添加的边不是自环边(v!=w)且如果不是有向图，那么应该邻接表的两个集合中都有这个边
             table[w].add(v);

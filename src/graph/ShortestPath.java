@@ -8,7 +8,7 @@ import java.util.Stack;
 /**
  * @author Ji YongGuang.
  * @date 16:53 2019/1/3.
- * @description 最短路径 BFS
+ * @description 广度优先遍历 最短路径 BFS
  */
 public class ShortestPath {
 
@@ -43,11 +43,11 @@ public class ShortestPath {
         queue.add(s);
         visited[s] = true;
         ord[s] = 0;
-        // from 根节点的from不动
+        // 根节点的from[i]对应-1。
 
         while (!queue.isEmpty()) {
             int v = queue.remove();
-            graph.adj(v).forEach(item -> {
+            graph.adj(v).forEach(item -> {// 迭代节点v的每个相邻节点
                 if (!visited[item]) {
                     queue.add(item);
                     visited[item] = true;

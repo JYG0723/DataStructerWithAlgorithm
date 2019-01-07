@@ -20,6 +20,7 @@ public class Path {
 
     private void dfs(int v) {
         visited[v] = true;
+        // from[s] 为 -1.
         graph.adj(v).forEach(item -> {
             if (!visited[item]) {// 检索图中未访问过的节点
                 from[item] = v;

@@ -3,7 +3,7 @@ package graph;
 /**
  * @author Ji YongGuang.
  * @date 19:56 2018/12/30.
- * @description 求无权图的联通分量
+ * @description 求无权图的[联通分量]
  */
 public class Components {
 

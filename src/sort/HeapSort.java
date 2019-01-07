@@ -50,13 +50,15 @@ public class HeapSort {
     }
 
     public static void main(String[] args) {// 0.153s
-        int[] arr = SortTestUtils.generateRandomArray(10000, 0, 10000);
+        /*int[] arr = SortTestUtils.generateRandomArray(10000, 0, 10000);
 
         long startTime = System.currentTimeMillis();
         sort(arr);
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) / 1000.0 + "s");
-
+*/
+        int[] arr = new int[]{1, 8, 6, 2, 5, 4, 7, 3};
+        sort(arr);
         System.out.println(Arrays.toString(arr));
         System.out.println(SortTestUtils.isSorted(arr));
     }
